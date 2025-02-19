@@ -8,8 +8,8 @@ export XDG_BIN_HOME="${XDG_BIN_HOME:-$HOME/.local/bin}"
 # env variables
 export DOTFILES_DIR="$XDG_DATA_HOME/dotfiles"
 if [[ -z "$LESSHISTFILE" ]]; then
-    export LESSHISTFILE="$XDG_STATE_HOME/less/history"
-    mkdir -p "$(dirname "$LESSHISTFILE")"
+  export LESSHISTFILE="$XDG_STATE_HOME/less/history"
+  mkdir -p "$(dirname "$LESSHISTFILE")"
 fi
 export GNUPG_HOME="$XDG_CONFIG_HOME/gnupg"
 
@@ -21,7 +21,7 @@ export ZSH_COMPDUMP="$XDG_CACHE_HOME/zsh/zcompdump"
 export ZINIT_HOME="$XDG_DATA_HOME/zinit/zinit.git"
 
 if [[ -d "$XDG_STATE_HOME/where/work" ]]; then
-    export WORKMACHINE=1
+  export WORKMACHINE=1
 elif [[ -d "$XDG_STATE_HOME/where/home" ]]; then
-    export HOMEMACHINE=1
+  export HOMEMACHINE=1
 fi

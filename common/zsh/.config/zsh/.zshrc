@@ -4,7 +4,7 @@ fi
 
 if [[ ! -f "$ZINIT_HOME/zinit.zsh" ]]; then 
   print "zinit not found. Installing..."
-  mkdir -p "$ZINIT_HOME" && \ 
+  mkdir -p "$ZINIT_HOME" && \
     git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
 fi
 
