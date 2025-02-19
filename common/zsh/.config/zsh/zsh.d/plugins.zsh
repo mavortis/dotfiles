@@ -1,3 +1,7 @@
+zmodload zsh/complist
+zmodload zsh/zutil
+zmodload zsh/zle
+
 zinit ice from"gh-r" as"program" mv"direnv* -> direnv"
 zinit light direnv/direnv
 
@@ -47,6 +51,10 @@ zinit light muesli/duf
 zinit ice wait lucid as"program" mv"dust*/dust -> dust" pick"dust" from"gh-r"
 zinit light bootandy/dust
 
+# fzf - fuzzy finder
+zinit ice wait"1" from"gh-r" as"program" lucid
+zinit light junegunn/fzf
+
 # gtrash - trash replacement
 zinit ice lucid wait"0" as"program" from"gh-r"
 zinit light umlx5h/gtrash
@@ -54,6 +62,9 @@ zinit light umlx5h/gtrash
 # lazygit - git client
 zinit ice lucid wait="0" as="program" from="gh-r" mv="lazygit* -> lazygit" atload="alias lg='lazygit'"
 zinit light jesseduffield/lazygit
+
+zinit ice lucid wait="0" as="program" from="gh-r" mv="walk* -> walk"
+zinit light antonmedv/walk
 
 # xh - a nicer http client
 zinit ice wait lucid as"program" mv"xh* -> xh" pick"xh/xh" from"gh-r"
@@ -75,3 +86,6 @@ zinit ice wait'0c' lucid
 zinit light zdharma-continuum/history-search-multi-word
 zinit light zsh-users/zsh-history-substring-search
 zinit light hlissner/zsh-autopair
+
+zinit ice wait lucid
+zinit snippet OMZ::plugins/colored-man-pages/colored-man-pages.plugin.zsh
