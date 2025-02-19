@@ -12,26 +12,7 @@ source "$ZINIT_HOME/zinit.zsh"
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
-zinit for \
-    light-mode \
-  zsh-users/zsh-autosuggestions \
-  zsh-users/zsh-history-substring-search \
-  zdharma-continuum/fast-syntax-highlighting \
-  zdharma-continuum/history-search-multi-word \
-    as"command" from"gh-r" \
-    atclone"./starship init zsh > init.zsh; ./starship completions zsh > _starship" \
-    atpull"%atclone" src"init.zsh" \
-  starship/starship \
-    as"program" pick"direnv" \
-  direnv/direnv \
-    as"program" \
-  eza-community/eza \
-    atload"zicompinit; zicdreplay" \
-    blockf \
-    lucid \
-    wait \
-  zsh-users/zsh-completions \
-  hlissner/zsh-autopair
+source "$ZDOTDIR/plugins.zsh"
 
 zmodload zsh/complist
 zmodload zsh/zutil
