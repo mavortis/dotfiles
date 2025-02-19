@@ -1,6 +1,22 @@
 [user]
   name = mars
   email = marsvindex@gmail.com
+  signingKey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKYiwRj4N7PwC/Z0nTxhXszKCTup7CA5KwekU1Da3m8N
+
+[commit]
+  gpgsign = true
+
+[gpg]
+  format = ssh
+
+[gpg "ssh"]
+  program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
+
+[init]
+  defaultBranch = master
 
 [include]
   path = ~/.local/state/where/work/git/config
+
+[tag]
+  gpgsign = true
