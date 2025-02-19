@@ -1,2 +1,4 @@
 .DS_Store
 work/git/.local/state/where/work/git
+.zcompdump
+.zsh_history
