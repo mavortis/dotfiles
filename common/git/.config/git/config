@@ -1,3 +1,6 @@
 [user]
   name = mars
   email = marsvindex@gmail.com
+
+[include]
+  path = ~/.local/state/where/work/git/config
