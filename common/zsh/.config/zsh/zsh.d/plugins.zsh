@@ -66,6 +66,13 @@ zinit light jesseduffield/lazygit
 zinit ice lucid wait="0" as="program" from="gh-r" mv="walk* -> walk"
 zinit light antonmedv/walk
 
+zinit as="command" lucid from="gh-r" for \
+    id-as="mise" mv="mise* -> mise" \
+    atclone="./mise* completion zsh > _mise" \
+    atpull="%atclone" \
+    atload='eval "$(mise activate zsh)"' \
+    jdx/mise
+
 # xh - a nicer http client
 zinit ice wait lucid as"program" mv"xh* -> xh" pick"xh/xh" from"gh-r"
 zinit light ducaale/xh
