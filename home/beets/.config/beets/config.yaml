@@ -1,0 +1,209 @@
+# https://beets.readthedocs.io/en/stable/reference/config.html
+# packages required: ffmpeg, pyacoustid, beets, beets[mbsync]
+
+directory: ~/beets
+library: ~/.local/state/beets/musiclibrary.blb
+
+per_disc_numbering: yes
+threaded: yes
+id3v23: yes
+
+asciify_path: yes
+clutter: [".DS_Store", "thumbs.db", "*.m3u", ".pls", "*.jpg"]
+ignore: [".*", "*~", "System Volume Information"]
+
+plugins:
+  albumtypes
+  bucket
+  check
+  chroma
+  convert
+  duplicates
+  edit
+  fetchart
+  fromfilename
+  ftintitle
+  importadded
+  info
+  inline
+  lastgenre
+  lyrics
+  mbsync
+  missing
+  parentwork
+  web
+  zero
+
+albumtypes:
+  types:
+    - album: 'Album'
+    - ep: 'EP'
+    - single: 'Single'
+    - soundtrack: 'Soundtracks'
+    - live: 'Live'
+    - compilation: 'Compilation'
+    - remix: 'Remix'
+  ignore_va: compilation
+  bracket: '[]'
+
+
+paths:
+  default: Artists/%bucket{%asciify{$albumartist},alpha}/%asciify{$albumartist}/%asciify{$album}%aunique{}/$track %asciify{$title}
+  singleton: Artists/%bucket{%asciify{$albumartist},alpha}/%asciify{$artist}/Singles/%asciify{$title}
+  soundtrack_type:score: Soundtracks/Scores/%bucket{%asciify{$album},alpha}/%asciify{$album}%aunique{}/$track %asciify{$title}
+  soundtrack_type:game: Soundtracks/Games/%bucket{%asciify{$album},alpha}/%asciify{$album}%aunique{}/$track %asciify{$title}
+  albumtype:soundtrack: Soundtracks/Unsorted/%bucket{%asciify{$album},alpha}/%asciify{$album}%aunique{}/$track %asciify{$title}
+  comp: Compilations/%asciify{$album}%aunique{}/$track %asciify{$title}
+  ext:jpg: $albumpath/scans/cover
+  ext:png: $albumpath/scans/cover
+  ext:pdf: $albumpath/scans/booklet
+
+import:
+  write: yes
+  move: yes
+  resume: yes
+  from_scratch: no
+  timid: no
+  detail: no
+  languages: en de es fr jp
+  log: /var/log/beets-import.log
+
+convert:
+  auto: no
+  quiet: true
+  delete_originals: true
+  never_convert_lossy_files: true
+  format: alac
+  formats:
+    flac:
+      command: ffmpeg -i $source -c:a flac $dest
+      extension: flac
+    alac:
+      command: xld $source -f alac -o $dest
+      extension: m4a
+
+bucket:
+  bucket_alpha:
+    - _
+    - A
+    - B
+    - C
+    - D
+    - E
+    - F
+    - G
+    - H
+    - I
+    - J
+    - K
+    - L
+    - M
+    - N
+    - O
+    - P
+    - Q
+    - R
+    - S
+    - T
+    - U
+    - V
+    - W
+    - X
+    - Y
+    - Z
+  bucket_alpha_regex:
+    '_': ^[^A-Za-z]
+
+ftintitle:
+  auto: true
+  drop: false
+  format: 'feat. {0}'
+
+match:
+  preferred:
+    countries: ['US', 'DE', 'GB|UK']
+    media: ['Digital Media|File', 'Digital Media']
+    original_year: yes
+    ignored: missing_tracks unmatched_tracks
+
+ui:
+  color: yes
+  colors:
+    text_success: green
+    text_warning: blue
+    text_error: red
+    text_highlight: blue
+    text_highlight_minor: lightgray
+    action_default: darkblue
+    action: purple
+
+edit:
+  itemfields: track title artist artist_sort albumartist albumartist_sort album albumtype albumtypes
+  albumfields: album albumartist albumartist_sort albumtype albumtypes
+
+check:
+  import: yes
+  write-check: yes
+  write-update: yes
+  convert-update: no
+  threads: 1
+
+chroma:
+  auto: yes
+
+embedart:
+  auto: yes
+
+importadded:
+  preserve_mtimes: no
+  preserve_write_mtimes: no 
+
+item_fields:
+  multidisc: 1 if disctotal > 1 else 0
+  my_soundtrack_type: >
+    # This code is run as the body of a function, and you can refer
+    # to the current track object as `item`.
+    return item.get('soundtrack_type', '')
+
+album_fields:
+  my_soundtrack_type: >
+    return album.get('soundtrack_type', '')
+
+lastgenre: 
+  count: 1
+  canonical: ~/.config/beets/genres/genres-tree.yaml
+  whitelist: ~/.config/beets/genres/genres.txt
+  min_weight: 10 
+  fallback: ''
+  canonical: no 
+  source: album 
+  force: no
+  auto: yes 
+  separator: ', ' 
+  source: track
+  prefer_specific: no
+  title_case: yes
+
+lyrics:
+  auto: yes
+  fallback: ''
+
+replace:
+  '[\\/]': ∕          # Replace with DIVISION SLASH (U+2215)
+  '^\.': _            # If text starts with \, replace with underscore
+  '[\x00-\x1f]': _    # Remove ASCII control characters (0 to 31 on ascii table)
+  '[<>:"\?\*\|]': _   # Removes the Windows “reserved characters”
+  '\.$': _            # If text ends with \, replace with underscore
+  '\s+$': ''          # If text ends with a space, remove space
+  '^\s+': ''          # If text starts with a space, remove space
+  '^-': _             # If text starts with -, replace with underscore
+  '[\?]': ？          # Replace with FULLWIDTH QUESTION MARK (U+FF1F)
+  '[\.]{3}$': …       # Replace 3 dots at end of text with special ellipis charcter
+
+web:
+  host: 0.0.0.0
+  port: 8337
+
+zero:
+  fields: month day comments
+  update_database: true
