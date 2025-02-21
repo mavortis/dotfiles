@@ -8,6 +8,8 @@
 (setq user-full-name "mars"
       user-mail-address "marsvindex@gmail.com")
 
+
+
 ;; Doom exposes five (optional) variables for controlling fonts in Doom:
 ;;
 ;; - `doom-font' -- the primary font to use
@@ -43,6 +45,13 @@
 (setq org-directory "~/org/"
       org-roam-directory "~/org/"
       org-roam-dailies-directory "journal/")
+
+(setq initial-frame-alist
+      (append initial-frame-alist
+              '((left   . 30)
+                (top    . 50)
+                (width  . 200)
+                (height . 70))))
 
 ;; by default it's 8?
 (setq evil-shift-width 2)
